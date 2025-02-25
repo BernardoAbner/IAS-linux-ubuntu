@@ -1,0 +1,399 @@
+Anotações Linux
+
+1.0 configuração maquina virtual:
+
+  1.1 Configurações do Windows para inicialização:
+  bcdedit: conferir se o hypervisorlaunchtype está como off
+  bcdedit /set hypervisionlaunchtype off: para alterar status para off
+  obs: Este hypervisionlaunchtype é o software de atualização da Microsoft,
+  pode ocasionar em erro da maquina virtual.
+  reiniciar computador após isso.
+
+  1.2: Configurando máquina virtual:
+  distru selecionada: ubuntu 64-bit
+  memoria base: 1024GB para começar
+  Placa em modo bridge: para possibilitar acesso remoto futuramente
+    nome: Caso seja wifi por cabo,  selecionar Ethernet e caso seja Placa de wifi o driver.
+  Armazenamento: Em disco, clicar e após isso clicar no desenho do disco na direita
+    selecionar a iso do ubuntu
+ Iniciar.
+
+
+COMANDOS LINUX
+
+shutdown (tempo para desligar, se for agora 0): comando para desligar
+clear: limpa a linha de comando ou Cntrl L
+
+ip a: para mostrar todos os IP's disponíveis do computador
+  obs: ip do computador vai ser o inet abaixo do link/ether
+
+putty: software para acesso remoto da máquina virtual
+
+sudo apt-get install openssh-server: instalar o serviço ssh
+  obs: ssh é uma ferramenta de acesso remoto(como no github)
+
+Cntrl C: para sair quando entrar no > terminal
+
+ssh nomeusuario@numeroip: acessar maquina virtual de um Linux.
+
+OBS: ~ significa que eu estou na pasta do usuário
+     / significa que estou no diretório principal
+     $ significa que é um usuário normal que tem restrições
+     # indica que é um super usuário, com acesso total ao sistema (root)
+
+date: mostrar data e hora 
+
+pwd: mostra o diretório atual
+
+/: indica o Diretório raiz, diretório principal.
+
+cd: (change diretory) serve para muda o diretóririo.
+  Ex1: cd / vai me mover para a o diretório principal, raiz
+  Ex2: cd .. volta um diretório
+  Ex3: cd ../diretório: volta um diretório e já acessa o desejado
+  Ex4: cd /diretório/ (2x Tab) vai mostrar os possíveis diretórios
+    Obs: caso so tenha um diretório será adicionado automaticamente
+  Ex5: cd home vai para o diretório do usuário, onde tenho permissaão para criar arquivo
+    Obs: cd ~ da no mesmo
+
+ls: listar os arquivos presente no diretório atual
+  Obs: Tudo o que estiver em azul é um diretório.
+  Ex1: ls | more: exibe em forma de lista para ir rolando clicando em enter (Cntrl C sair)
+  Ex2: ls nomearquivo: para saber se existe algum arquivo com este nome
+  Ex3: ls p*: vai listar tudo que começa com p no diretório atual
+  Ex4: ls m?g*: primeira letra vai ser m, segunda não sabe, terceira g e depois qualquer
+  Ex5: ls arquivo[1-3]* ou "txt": vai listar todos os arquivos entre 1 e 3
+  Ex6: ls aqruivo[1,3]* ou "txt": vai listar os arquivos 1 e 3.
+  Ex7: ls aqruivo[^1,^3]* ou "txt": vai listar todos os arquivos exceto 1 e 3.
+  Ex8: ls -help: mostra ajuda sobre a utilização do ls
+  Ex8: ls -a: mostra todos os arquivos, incluindo os ocultos
+  Ex9: ls -l: mostra arquivos em rolagem
+  Ex10: ls -lh: mostra arquivos em rolagem com tamanho em gb
+  Ex11: ls -d: mostra apenas diretórios
+  Ex12: ls -R: mostra todos os arquivos e diretórios e o que tem dentro
+  
+
+find: Serve para procurar um arquivo e mostrar o diretório que ele se encontra
+  Ex1: find -name nomearquivo
+    Obs: caso execute este comando na raiz mostra todos os diretórios
+
+touch: Cria um arquivo no diretório atual
+  Ex1: touch nomearquivo
+  Ex2: touch arquivo1 arquivo2 arquivo3
+  
+rm: Exclui arquivo oou diretório inteiro
+  Ex1: rm nomearquivo
+  Ex2: rm * exclui todos os arquivos dentro do diretório
+  Ex3: rm *.txt exclui todos com a extensão txt
+  Ex4: rm arquivo* exclui todos os arquivos independente da extensão
+  Ex5: rm -rf (o 'r' significa recursivo, ele vai entrar dentro do diretório e excluir tudo
+  dentro inclusive o diretório)
+  Ex6: rm --help: mostra informações do rm
+  Ex7: rm -rfv: vai executar o rf e mostrar verbalmente o que aconteceu
+  Ex8: rm -rfvi: Vai executar o rfv e vai pedir confirmação antes de usar
+    Obs: Confirma com y e recusa com n
+
+mkdir: Cria um diretório
+  Ex1: mkdir nomediretorio
+  Ex2: mkdir 'nome diretorio' para diretório com espaço
+  
+rmdir: Exclui um diretório ou um arquivo
+  Ex1: rmdir nomediretorio para excluir o diretório
+    Obs: o diretório so será excluído caso não tenha arquivo dentro
+
+comando --help: Serve como um 'manual' do comando
+  Ex1: ls --help: mostra informações e parâmetros do ls
+
+OBS: Azul escuro: diretório
+     Azul claro: link
+     branco: arquivo
+
+OBS: grupos que podem realizar atividades de administrador são adm e sudo.
+
+Sudo comando: para realizar tarefas que so adm's tem acesso.
+
+passwd: Atribui uma senha a um usuário existente.
+  Ex1: sudo passwd root: Atribui uma senha ao root
+  Ex2: passwd usuário -e 00/00/0000 : cria senha com data de validada
+
+su: Comando para logar como root e para voltar ao usuário.
+  Ex1: su: vai entrar no root
+  Ex2: su usuário: vai sair do root e logar no usuário desejado
+  Obs: Quando logado mostra uma # ao invés de $
+  Obs: Usar o root apenas para executar uma tarefa ou outra e não permanecer logado
+
+cat: comando para mostra conteúdo de um arquivo texto
+  Ex1: cat /etc/ssh/sshd_config: Mostra conteúdo do arquivo texto sshd_config
+
+nano: comando para editar-config arquivo de texto
+  Ex1: nano /etc/ssh/sshd_config: vai abrir o arquivo de texto sshd_conig e possibilitar a   
+    edição
+  OBS: Usar sudo para obter acesso a edição ou logar como root
+  OBS: Para salvar o arquivo de cntrl O e para sair cntrl X
+
+reboot: Vai reiniciar a maquina virtual.
+
+para fazer acesso remoto via root:
+  Passo 1: sudo nano /etc/ssh/sshd_config
+  Passo 2: procurar por PermitRootLogin apagar a #
+  Passo 3: alterar o texto para yes
+  Passo 4: Cntrl O para salvar alteração e Cntrl x para sair
+  Passo 5: restart
+
+vi: editor de textos e comando
+  Ex1: vi arquivo.txt: entra para editar o arquivo.txt
+  Ex2: vi novoarquivo.txt: cria um arquivo.txt novo e já entra para editar
+  Passo1: Clicar na tecla 'i' para habilitar inserção de conteúdo dentro do arquivo
+  Passo2: Clicar em esc para parar de editar
+  Passo3: Clicar em ':' e digitar 'wq' para salvar e sair
+
+hsitory: Comando para listar histórico de comandos do usuário
+  Ex1: history 30: vai me mostrar apenas os últimos 30 comandos que o usuário utilizou
+  Ex2: history !30: vai mostrar qual foi o comando listado como 30
+  Ex3: !30: vai executar o comando 30
+  Ex4: !!: vai executar o ultimo comando
+  Ex5: !?coman?: vai fazer uma consulta no historico e excutar o comando que achar
+  Ex6: history | grep "texto": vai usar texto como parâmetro e buscará todos os comandos   
+    com "texto".
+  Ex7: history -c: apaga o histórico, temporariamente.
+  Ex8: export HISTTIMEFORMAT=""formato: mostra o histórico com a data
+    Ex7.1: %d: Day
+    Ex7.2: %m: Month
+    Ex7.3: %y: Year
+    Ex7.4: %H: Hour
+    Ex7.5: %M: Minutes
+    Ex7.6: %S: Seconds
+    Ex7.7: %F: Full date (Y-M-D format) 
+    Ex7.8: %T: time (H:M:S format)    
+    Ex7.9: %c: mostra data e hora
+	OBS: dar um espaço depois da letra é uma boa prática, assim como no print "%c ".
+
+  
+
+set +o history: Faz com que qualquer comando digitado não apareça no histórico
+set -o history: para voltar ao normal.
+
+useradd nomeusuário: comando para adicionar usuário
+  Ex1: useradd -- help: manual do useradd
+  Ex2: useradd nome -m: Cria a pasta home junto com o usuário
+  Ex3: useradd usuario -c  "nome usuario" : adiciona comentário na criação do usuário
+  Ex4: useradd nome -m -s /bin/bash: ja cria o usuário com pasta no diretório citado e    
+    shell.
+  Ex5: useradd nome -e 00/00/0000: comando para criar usuário com data de expiração.
+  Ex6: useradd -p $(openssl passwd -1 senha): Cria um usuário ja com senha.
+  Ex7: useradd -G nomegrupo: ja cria o usuário pertendo ao grupo
+
+userdel nomeusuário: comando para excluir usuário
+  Ex1: userdel -f: o -f serve para forçar a exclusão
+  Ex2: userdel -r: remove o usuário e tudo contido por ele
+
+
+chsh -s /bin/bash usuário: comando para definir shell de usuário
+
+usermod usuario: comando para modificar configurações do usuário
+  Ex1: usermod -G adm, sudo usurário: tira dos grupos queela pertence e coloca ela no  
+    grupo especificado.
+
+
+Criando script:
+  Passo1: abrir com o nano ou um vi um arquivo novo .sh
+  Passo2: na primeira linha colocar #!/bin/bash para indicar que se trata de um script
+  Passo3: echo "Comando para exibir uma mensagem..."
+  Passo4: inserir serie de comandos, como 5 para criação de usuário
+  Passo5: echo "Finalizando script!!"
+
+Executando script: 
+  Passo1: chmod +x script.sh: para criar permissão.
+  Passo2: ./script.sh para executar script
+
+groupadd nomegrupo: comando para criação de grupos
+
+groupdel nomegrupo: comando para deletar grupo
+
+gpasswd -d usuário grupo: Remove usuário do grupo especificado 
+
+Sistema de permissões:
+  Primeira caractere: 
+    d -> significa que é um diretório.
+    - -> significa que é um arquivo.
+
+  primeiro bloco de caracteres (rwx) indica o dono: 
+    r -> read(leitura)
+    w -> Write(Escrita)
+    x -> Execute(Execução)
+      OBS: Significa que o dono do grupo pode ler, escrever e executar.
+
+  Segundo bloco de caracteres (r-x) indica pessoas que pertencem ao grupo:
+    r -> read(leitura)
+    x -> Execute(Execução)
+      OBS: Significa que o usuário que está no grupo mas não é o dono pode ler e executar,     
+           mas não pode escrever nada.
+ 
+  Terceiro bloco de caracteres (r-x) usuários que não são donos e nem pertencem ao grupo.
+    r -> read(leitura)
+    x -> Execute(Execução)
+      OBS: Significa que estes usuários podem ler e executar mas não podem escrever nada.
+
+
+   chown (change owner) usuário:nome-grupo /diretório/:
+     Ex1: chown joseeee:GRP_ADM /adm/
+
+  Alterando permissões
+    chmod: muda permissão do grupo
+      escolher quanta permissão dar:
+        R: 4
+        W: 2
+        X: 1
+        Nenhuma: 0
+          Ex1: r-x: 5 rwx:7 rw:6....
+   Ex1: chmod 750 /diretório/: dono rwx, grupo rx, fora do grupo 0.
+   Ex2: chmod 750 texto.txt: vai mudar a permissão para um arquivo especifíco
+
+  
+cat /etc/group: Comando para checar quais usuários pertencem a quais grupos.
+
+
+mv /diretório/arquivo.txt /diretório2/: move o arquivo para outro diretório
+
+
+GERECIADOR DE PACOTES
+
+apt-get: comando para instalar algo, este é um comando mais de baixo nível.
+
+apt install aqruivoo: instala o arquivo e mostra detalhes sobre a instalação.
+
+apt list: Lista tudo que está disponível para instalar na maquina
+
+apt list --installed: Lista o que já está instalado na máquina
+
+apt list --upgadreable: Mostra tudo o que pode ser atualizado
+
+apt remove: desinstala um arquivo
+
+apt search samba: busca por arquivos e verifica se está disponível
+
+apt edit-sources: mostra todos os repositórios oficiar do ubuntu
+
+Atualizando Os
+
+  Passo 1: apt update: vai fazer update dos repositórios do sistema e mostra o que sera    
+           atualizado
+  Passo 2: apt upgrade -y: faz atualização sem perguntar nada
+
+Visualizar discos no Linux:
+
+  lsblk: mostra os discos e as partições.
+    sda: é o disco
+      Obs: caso tenha mais de um sera conhecido como sdb, sdc...
+    sda1, sda2...: são as partições do disco sda.
+   
+  fdisk -l: mostra os discos com mais detalhes como tamanhp, tipos, versão...
+
+ 
+Criação de nova partição
+  Passo1: Desligar maquina virtual e abrir armazenamento em configurações
+  Passo2: Clicar no desenho do hd, o da direita, vai estar escrito isco rígido.
+  Passo3: Clicar em criar e clicar em VDI
+  Passo4: tanto faz alocar total o dinâmico, mas o ideal é o dinâmico
+  Passo5: Clicar em escolher
+  Passo6: shutdown
+  Passo7: fdisk /dev/sd*
+  Passo8: digitar n
+  Passo9: Escolher se vai ser primary ou extended (p ou e)
+  Passo10: escolher o numero de partição, caso primary, escolha o número 1 depois 3x enter
+  Passo11: após isso digitar w para salvar e sair.
+  Passo12: mfks.ext4 /dev/sd*: para formatar o disco como ext4
+           OBS: o ext4 varia dependendo de qual Linux está sendo usado, ext3, nfts(windows)
+  Passo13: cd /mnt/: abrir o mnt que é onde normalmente monta o disco
+  Passo14: mkdir disco*: para criar um diretório para o novo disco dentro do mnt
+  Passo15: mount /dev/sd* /mnt/disco*: para montar o a partiçõ do disco dentro do diretório
+           Após isso já está pronto para uso
+	     OBS: umount: comando para desmontar o disco
+  	       OBS: Este comando não apaga o arquivo, apenas desmonta o disco, caso monte  
+                    novamente os arquivos permanecerão, podendo montar em outro diretório
+		 Passo15.1: umount /dev/sd*
+		 Passo15.2: cd /mnt
+	 	 Passo15.3: rmdir disco*: vai apagar o diretório criado
+                   OBS: não vai apagar o conteúdo dentro do diretório, pois o disco está 			desmontado
+		 Passo15.4: escolher uma pasta, podendo ser qualquer uma
+ 		 Passo15.5: cd / (EX)
+		 Passo15.6: mount /dev/sd* /disco*
+		 Passo15.7: cd disco*
+  		 Passo15.8: ls: conferir se realmente os arquivos se mantiveram no disco
+shutdown 0: desliga a máquina virtual.
+  passo16: nano /etc/fstab: Para alterar arquivo fstab.
+    OBS: Caso este passo não seja feito será necessário montar o disco toda vez que 	    
+         reiniciar a maquina virtual
+	   Passo16.1: adicionar o diretório /dev/sd* /disco* ext4 defaults 0 0 
+ 
+
+Copiando arquivos:
+  Ex1: cp /diretório/arquivo.txt /diretório/destino
+  Ex2: ./arquivo.txt /diretório/destino: quando ja está no direório de saída
+  Ex3: cp -i: caso tenha arquivo repetido, perguntará se quer sobrepor arquivos repetidos 
+  Ex4: cp -r: copia todos os arquivos, independente da extensão
+  Ex5: cp -v: avisa o que está sendo feito v (verboso)
+
+Movendo arquivos:
+  Ex1: mv /diretório/arquivo.txt /diretório/destino
+  Ex2: mv arquivo1.txt arquivo2.txt: vai renomear o arquivo.
+  Ex3: mv -i: caso tenha arquivo repetido, perguntará se quer sobrepor arquivos repetidos 
+  Ex5: mv -v: avisa o que está sendo feito v (verboso)
+
+ps: comando para visualizar processos chamados no terminal
+  Ex1: ps a: mostra os processos de todos os usuários
+  Ex2: ps u: mostra o nome do usuário e a hora que ele iniciou o processo
+  Ex3: ps x: mostra processos executados fora do console
+  Ex4: ps aux: Executa todos ao mesmo tempo
+
+kill: comando para derrubar processo de um usuário
+  Ex1: kill 1001(PID): vai derrubar o processo do usuário com PID 1001
+  Ex2: killall chrome: vai derrubar o chrome de quem estiver usando
+
+w: vai exibir informações de quem está logado.
+
+who -a: Exibi informação de pessoas que estão logadas, incluindo o PID.
+  OBS: Serve para poder olhar o PID de alguma pessoa específica e derrubala do sistema 
+       a partir deste PID com o kill (PID).
+
+OBS:O ideal é ter um disco apenas para o sistema operacional, e outros para outras funções, para evitar que o OS fique lento 
+
+Configurando Samba: 
+  Passo1: criar um diretório público no disco 2
+  Passo2: nano etc/samba/amb.conf
+  Passo3: ir ao final do arquivo e digitar [publica]
+  Passo4: path = /diretório/publica
+  Passo5: writable = yes: para autorizar que escrevam na pasta
+  Passo6: guest ok = yes: dando permissão para convidado
+  Passo7: guest only = yes: tornando todo mundo convidado, já que é publica
+  Passo8: O samba é um daemon, um serviço que roda em segundo plano
+  Passo9: systemctl restart smbd: restart no samba. smb de samba e d de daemon
+          OBS: systemctl é utilizado para reiniciar e fechar serviços de segundo plano.
+  Passo10: systemctl status smbd: conferir se o samba está funcionando corretamente
+  Passo11: systemctl enable smbd: para que o samba ligue automaticamente após ligar vm
+
+Acesso da pasta publica via Windows
+  Passo1: abrir explorador de arquivos e colocar em diretório: \\seu.ip.vm\publica
+  Passo2: colocar o nome de algum usuário e não precisa colocar senha
+  Passo3: 
+
+Mapeando caminho de rede:
+  Passo1: no Windows abrir explorador de arquivo e clicar em meu computador > mais opções > 
+          mapear unidade de rede.
+  Passo2: Inserir diretório \\seu.ip.vm\publica e escolher uma letra que não seja usada
+  OBS: agora até mesmo quando estiver no Windows tenho a opção de salvar arquivos nesta  
+       pasta do Linux.
+  
+
+Servidor apache2:
+  Passo1: apt install apache2 -y
+  Passo2: systemctl status apache2: verificar se está funcionando
+  Passo3: verificar funcionamento via google: pesquisar o ip no google
+  Passo4: cd /var/www/html
+  Passo5: caso queira pode apagar o arquivo .html e colocar o que for de interesse no lugar
+
+
+MyQL:
+  Passo1: apt install mysql-server-8.0 -y
+  Passo2: mysql -u root -p: para entrar no mysql já como root
+  Passo3: exit: para sair do mysql
